@@ -12,16 +12,14 @@ import numpy as np
 
 
 PACKAGE_NAME = 'ni845x'
-NI_ICLUDE_DIR=r'C:\Program Files\National Instruments\NI-845x\MS Visual C'
+NI_ICLUDE_DIR=r'C:\Program Files (x86)\National Instruments\NI-845x\MS Visual C'
 NI_LIB='ni845x'
-IPOPT_LIB_DIR=r'C:\Program Files\National Instruments\NI-845x\MS Visual C'
+IPOPT_LIB_DIR=r'C:\Program Files (x86)\National Instruments\NI-845x\MS Visual C'
 
 setup(
     name=PACKAGE_NAME,
     version='0.1',
     description='A Cython wrapper to the ni854x I2C interface',
-    author='Amit Aides',
-    author_email='amitibo@tx.technion.ac.il',
     url="",
     packages=[PACKAGE_NAME],
     cmdclass = {'build_ext': build_ext},
