@@ -42,3 +42,48 @@ class NI845x():
         
         self._name = self.devices_list[0]
 
+    def configure_i2c(self, size=dll.kNi845xI2cAddress7Bit, address=0, clock_rate=100):
+        """
+        Set the ni845x I2C configuration.
+        
+        Parameters
+        ----------
+            size : Configuration address size (default 7Bit).
+            address : Configuration address (default 0).
+            clock_rate : Configuration clock rate in kilohertz (default 100).
+
+        Returns
+        -------
+            None
+        """
+        
+        #
+        # create configuration reference
+        #
+        errChk(ni845xI2cConfigurationOpen(&self._I2CHandle))
+        
+        #
+        # configure configuration properties
+        #
+        errChk(ni845xI2cConfigurationSetAddressSize(self._I2CHandle, size))
+        errChk(ni845xI2cConfigurationSetAddress(self._I2CHandle, address))
+        errChk(ni845xI2cConfigurationSetClockRate(self._I2CHandle, clock_rate))
+        
+    def I2cClose(self):
+        """
+        Release the handles to the ni845x I2C interface.
+
+        Parameters
+        ----------
+            None
+
+        Returns
+        -------
+            None
+        """
+
+        if self._I2CHandle:
+            ni845xI2cConfigurationClose(self._I2CHandle)
+            
+        if self._DeviceHandle:
+            ni845xClose(self._DeviceHandle)
