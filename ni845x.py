@@ -76,7 +76,7 @@ class NI845x():
         val = ctypes.c_int32(val)
         errChk(ni845x_dll.ni845xDioWriteLine( self.dev_handle, port, line, val ))
         
-    def config_i2c(self, size=None, address=0, clock_rate=100):
+    def config_i2c(self, size=None, address=0, clock_rate=100, timeout=2000):
         """
         Set the ni845x I2C configuration.
         
@@ -95,6 +95,7 @@ class NI845x():
         size = ctypes.c_int32(size)
         address = ctypes.c_uint16(address)
         clock_rate = ctypes.c_uint16(clock_rate)
+        timeout = ctypes.c_uint32(timeout)
         #
         # create configuration reference
         #
@@ -107,8 +108,9 @@ class NI845x():
         errChk(ni845x_dll.ni845xI2cConfigurationSetAddressSize(self.i2c_handle, size))
         errChk(ni845x_dll.ni845xI2cConfigurationSetAddress(self.i2c_handle, address))
         errChk(ni845x_dll.ni845xI2cConfigurationSetClockRate(self.i2c_handle, clock_rate))
+        errChk(ni845x_dll.ni845xSetTimeout(self.dev_handle, timeout))
         
-    def i2c_write(self, data):
+    def write_i2c(self, data):
         """
         Write an array of data to an I2C slave device.
 
